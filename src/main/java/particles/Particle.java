@@ -1,9 +1,5 @@
 package particles;
 
-import jangl.graphics.MutableTexture;
-
-import java.util.Arrays;
-
 public abstract class Particle {
     protected int x, y;
     protected float[] rgba;

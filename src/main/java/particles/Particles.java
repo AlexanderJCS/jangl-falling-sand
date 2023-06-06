@@ -8,6 +8,7 @@ import jangl.io.Window;
 import jangl.shapes.Rect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Particles {
@@ -38,8 +39,18 @@ public class Particles {
     }
 
     public void update() {
+        // Make the column order random for every row to prevent biases in the direction of iteration
+        // with certain particles such as water. Before this was added, water would be biased towards the left.
+        List<Integer> columnOrder = new ArrayList<>(this.particles[0].length);
+
+        for (int i = 0; i < this.particles[0].length; i++) {
+            columnOrder.add(i);
+        }
+
         for (int r = this.particles.length - 1; r >= 0; r--) {
-            for (int c = 0; c < this.particles[r].length; c++) {
+            Collections.shuffle(columnOrder);
+
+            for (int c : columnOrder) {
                 Particle particle = this.particles[r][c];
 
                 if (particle == null) {
