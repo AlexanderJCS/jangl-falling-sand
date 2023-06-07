@@ -8,7 +8,7 @@ import game.ParticleSelector;
 import game.Particles;
 import particles.*;
 
-public class FallingSand {
+public class FallingSand implements AutoCloseable {
     private final Particles particles;
     private final ParticleSelector particleSelector;
 
@@ -35,7 +35,6 @@ public class FallingSand {
         if (outOfBounds || (this.particles.getParticleAt((int) xy.x, (int) xy.y) != null && !selected.equals("air"))) {
             return;
         }
-
 
         switch (selected) {
             case "sand"    -> this.particles.addParticle(new Sand((int) xy.x, (int) xy.y));
@@ -69,12 +68,20 @@ public class FallingSand {
         }
     }
 
+    @Override
+    public void close() {
+        this.particles.close();
+        this.particleSelector.close();
+    }
+
     public static void main(String[] args) {
         JANGL.init(1000, 1200);
         Window.setVsync(true);
         Window.setClearColor(1, 1, 1, 1);
 
-        new FallingSand().run();
+        FallingSand fallingSand = new FallingSand();
+        fallingSand.run();
+        fallingSand.close();
 
         Window.close();
     }

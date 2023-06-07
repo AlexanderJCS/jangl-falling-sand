@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Particles {
+public class Particles implements AutoCloseable {
     private static final float[] BACKGROUND_COLOR = new float[]{0.5f, 0.8f, 0.8f, 1};
     private final MutableTexture mutableTexture;
     private final Rect rect;
@@ -126,5 +126,11 @@ public class Particles {
         this.mutableTexture.bind();
         this.rect.draw();
         Texture.unbind();
+    }
+
+    @Override
+    public void close() {
+        this.rect.close();
+        this.mutableTexture.close();
     }
 }

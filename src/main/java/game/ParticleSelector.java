@@ -8,21 +8,20 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
-public class ParticleSelector {
-    private final Font font;
+public class ParticleSelector implements AutoCloseable {
     private final Text infoText;
     private final Text selectedText;
     private String selected;
 
     public ParticleSelector(float height) {
-        this.font = new Font("src/main/resources/arial/arial.fnt", "src/main/resources/arial/arial.png");
+        Font font = new Font("src/main/resources/arial/arial.fnt", "src/main/resources/arial/arial.png");
 
         this.selected = "sand";
 
-        this.infoText = new Text(new NDCoords(-0.95f, -height / 10 + 1), this.font, height / 5f,
+        this.infoText = new Text(new NDCoords(-0.95f, -height / 10 + 1), font, height / 5f,
                 "Press S for sand, W for water, z for stone,\nB for barrier, A for air. Click to spawn particles");
 
-        this.selectedText = new Text(new NDCoords(-0.95f, -height / 1.5f + 1), this.font, height / 5f,
+        this.selectedText = new Text(new NDCoords(-0.95f, -height / 1.5f + 1), font, height / 5f,
                 "Selected: " + this.selected);
     }
 
@@ -57,5 +56,14 @@ public class ParticleSelector {
 
     public String getSelected() {
         return this.selected;
+    }
+
+    @Override
+    public void close() {
+        // no need to close selectedText's font since they use the same font
+        this.infoText.getFont().close();
+
+        this.infoText.close();
+        this.selectedText.close();
     }
 }
