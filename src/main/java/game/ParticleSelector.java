@@ -1,4 +1,4 @@
-package particles;
+package game;
 
 import jangl.coords.NDCoords;
 import jangl.graphics.font.Text;

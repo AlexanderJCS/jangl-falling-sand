@@ -1,4 +1,4 @@
-package particles;
+package game;
 
 import jangl.coords.NDCoords;
 import jangl.coords.PixelCoords;
@@ -7,6 +7,7 @@ import jangl.graphics.Texture;
 import jangl.io.Window;
 import jangl.shapes.Rect;
 import jangl.time.Clock;
+import particles.Particle;
 
 import java.util.ArrayList;
 import java.util.Collections;

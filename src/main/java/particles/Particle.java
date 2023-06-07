@@ -1,5 +1,7 @@
 package particles;
 
+import game.Particles;
+
 public abstract class Particle {
     protected int x, y;
     protected float[] rgba;

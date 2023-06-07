@@ -1,5 +1,6 @@
 package particles;
 
+import game.Particles;
 import jangl.coords.Coords;
 
 public class MovableParticle extends Particle {

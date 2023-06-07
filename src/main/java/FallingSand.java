@@ -3,10 +3,9 @@ import jangl.coords.PixelCoords;
 import jangl.io.Window;
 import jangl.io.keyboard.Keyboard;
 import jangl.io.mouse.Mouse;
-import jangl.time.Clock;
 import org.lwjgl.glfw.GLFW;
-import particles.ParticleSelector;
-import particles.Particles;
+import game.ParticleSelector;
+import game.Particles;
 import particles.Sand;
 import particles.Water;
 
