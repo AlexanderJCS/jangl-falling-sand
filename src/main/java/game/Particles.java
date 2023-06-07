@@ -86,11 +86,11 @@ public class Particles {
 
                 particle.update(this);
 
-                if (particle.x != c || particle.y != r) {
-                    this.particles[particle.y][particle.x] = particle;
+                if (particle.getX() != c || particle.getY() != r) {
+                    this.particles[particle.getY()][particle.getX()] = particle;
                     this.particles[r][c] = null;
                     this.mutableTexture.setPixelAt(c, r, BACKGROUND_COLOR);
-                    this.mutableTexture.setPixelAt(particle.x, particle.y, particle.getRGBA());
+                    this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getRGBA());
                 }
             }
         }
