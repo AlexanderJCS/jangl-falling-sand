@@ -6,6 +6,7 @@ import jangl.graphics.MutableTexture;
 import jangl.graphics.Texture;
 import jangl.io.Window;
 import jangl.shapes.Rect;
+import jangl.time.Clock;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,8 +17,10 @@ public class Particles {
     private final MutableTexture mutableTexture;
     private final Rect rect;
     private final Particle[][] particles;
+    private final double updateTime;
+    private double timeToUpdate;
 
-    public Particles() {
+    public Particles(double updateTime) {
         this.mutableTexture = new MutableTexture("src/main/resources/black.png");
         this.mutableTexture.fillImage(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], 1);
 
@@ -28,6 +31,9 @@ public class Particles {
                 ).toScreenCoords(),
                 2, PixelCoords.distYtoNDC(Window.getScreenWidth())
         );
+
+        this.updateTime = updateTime;
+        this.timeToUpdate = 0;
     }
 
     public void addParticle(Particle particle) {
@@ -58,7 +64,7 @@ public class Particles {
         return this.particles[y][x];
     }
 
-    public void update() {
+    private void updateParticles() {
         // Make the column order random for every row to prevent biases in the direction of iteration
         // with certain particles such as water. Before this was added, water would be biased towards the left.
         List<Integer> columnOrder = new ArrayList<>(this.particles[0].length);
@@ -86,6 +92,15 @@ public class Particles {
                     this.mutableTexture.setPixelAt(particle.x, particle.y, particle.getRGBA());
                 }
             }
+        }
+    }
+
+    public void update() {
+        this.timeToUpdate += Clock.getTimeDelta();
+
+        while (this.timeToUpdate > updateTime) {
+            this.updateParticles();
+            this.timeToUpdate -= updateTime;
         }
     }
 
