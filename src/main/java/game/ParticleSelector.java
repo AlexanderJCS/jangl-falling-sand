@@ -40,16 +40,12 @@ public class ParticleSelector {
             char key = Character.toLowerCase(keyEvent.key);
             boolean newOptionSelected = true;
 
-            if (key == 's') {
-                this.selected = "sand";
-            } else if (key == 'w') {
-                this.selected = "water";
-            } else if (key == 'z') {
-                this.selected = "stone";
-            } else if (key == 'b') {
-                this.selected = "barrier";
-            } else {
-                newOptionSelected = false;
+            switch (key) {
+                case 's' -> this.selected = "sand";
+                case 'w' -> this.selected = "water";
+                case 'z' -> this.selected = "stone";
+                case 'b' -> this.selected = "barrier";
+                default -> newOptionSelected = false;
             }
 
             if (newOptionSelected) {
