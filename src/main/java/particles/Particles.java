@@ -12,12 +12,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class Particles {
+    private static final float[] BACKGROUND_COLOR = new float[]{0.5f, 0.8f, 0.8f, 1};
     private final MutableTexture mutableTexture;
     private final Rect rect;
     private final Particle[][] particles;
 
     public Particles() {
         this.mutableTexture = new MutableTexture("src/main/resources/black.png");
+        this.mutableTexture.fillImage(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], 1);
+
         this.particles = new Particle[this.getHeight()][this.getWidth()];
         this.rect = new Rect(
                 new PixelCoords(
@@ -79,7 +82,7 @@ public class Particles {
                 if (particle.x != c || particle.y != r) {
                     this.particles[particle.y][particle.x] = particle;
                     this.particles[r][c] = null;
-                    this.mutableTexture.setPixelAt(c, r, 0, 0, 0, 1);
+                    this.mutableTexture.setPixelAt(c, r, BACKGROUND_COLOR);
                     this.mutableTexture.setPixelAt(particle.x, particle.y, particle.getRGBA());
                 }
             }
