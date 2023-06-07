@@ -6,7 +6,9 @@ import jangl.io.mouse.Mouse;
 import org.lwjgl.glfw.GLFW;
 import game.ParticleSelector;
 import game.Particles;
+import particles.Barrier;
 import particles.Sand;
+import particles.Stone;
 import particles.Water;
 
 public class FallingSand {
@@ -36,10 +38,13 @@ public class FallingSand {
             return;
         }
 
-        if (this.particleSelector.getSelected().equals("sand")) {
-            this.particles.addParticle(new Sand((int) xy.x, (int) xy.y));
-        } else if (this.particleSelector.getSelected().equals("water")) {
-            this.particles.addParticle(new Water((int) xy.x, (int) xy.y));
+        String selected = this.particleSelector.getSelected();
+
+        switch (selected) {
+            case "sand"    -> this.particles.addParticle(new Sand((int) xy.x, (int) xy.y));
+            case "water"   -> this.particles.addParticle(new Water((int) xy.x, (int) xy.y));
+            case "stone"   -> this.particles.addParticle(new Stone((int) xy.x, (int) xy.y));
+            case "barrier" -> this.particles.addParticle(new Barrier((int) xy.x, (int) xy.y));
         }
     }
 
