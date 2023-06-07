@@ -19,7 +19,12 @@ public class Particles {
     public Particles() {
         this.mutableTexture = new MutableTexture("src/main/resources/black.png");
         this.particles = new Particle[this.getHeight()][this.getWidth()];
-        this.rect = new Rect(new NDCoords(-1, 1), 2, 2);
+        this.rect = new Rect(
+                new PixelCoords(
+                        0, Window.getScreenWidth()
+                ).toScreenCoords(),
+                2, PixelCoords.distYtoNDC(Window.getScreenWidth())
+        );
     }
 
     public void addParticle(Particle particle) {
@@ -28,10 +33,22 @@ public class Particles {
     }
 
     public PixelCoords getPixelCoords(NDCoords ndCoords) {
-        float x = NDCoords.distXtoPixelCoords(ndCoords.x + 1) * this.getWidth() / Window.getScreenWidth();
-        float y = (Window.getScreenHeight() - NDCoords.distYtoPixelCoords(ndCoords.y + 1)) * this.getHeight() / Window.getScreenHeight();
+        PixelCoords offset = new PixelCoords(
+                0, Window.getScreenHeight() - new NDCoords(0, this.rect.getCenter().y + this.rect.getHeight() / 2).toPixelCoords().y
+        );
 
-        return new PixelCoords(x, y);
+        PixelCoords pixelCoords = ndCoords.toPixelCoords();
+
+        float gridWidth = NDCoords.distXtoPixelCoords(this.rect.getWidth());
+        float gridHeight = NDCoords.distYtoPixelCoords(this.rect.getHeight());
+
+        float xPixels = pixelCoords.x + offset.x;
+        float yPixels = (Window.getScreenHeight() - pixelCoords.y) - offset.y;
+
+        float xGrid = xPixels * this.getHeight() / gridWidth;
+        float yGrid = yPixels * this.getWidth() / gridHeight;
+
+        return new PixelCoords(xGrid, yGrid);
     }
 
     public Particle getParticleAt(int x, int y) {

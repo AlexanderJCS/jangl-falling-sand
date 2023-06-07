@@ -54,7 +54,7 @@ public class FallingSand {
     }
 
     public static void main(String[] args) {
-        JANGL.init(1200, 1200);
+        JANGL.init(1000, 1200);
         Window.setVsync(false);
 
         new FallingSand().run();
