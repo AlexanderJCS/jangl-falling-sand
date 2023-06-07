@@ -6,10 +6,7 @@ import jangl.io.mouse.Mouse;
 import org.lwjgl.glfw.GLFW;
 import game.ParticleSelector;
 import game.Particles;
-import particles.Barrier;
-import particles.Sand;
-import particles.Stone;
-import particles.Water;
+import particles.*;
 
 public class FallingSand {
     private final Particles particles;
@@ -34,17 +31,18 @@ public class FallingSand {
         boolean outOfBounds = xy.x < 0 || xy.x >= this.particles.getWidth() ||
                 xy.y < 0 || xy.y >= this.particles.getHeight();
 
-        if (outOfBounds || this.particles.getParticleAt((int) xy.x, (int) xy.y) != null) {
+        String selected = this.particleSelector.getSelected();
+        if (outOfBounds || (this.particles.getParticleAt((int) xy.x, (int) xy.y) != null && !selected.equals("air"))) {
             return;
         }
 
-        String selected = this.particleSelector.getSelected();
 
         switch (selected) {
             case "sand"    -> this.particles.addParticle(new Sand((int) xy.x, (int) xy.y));
             case "water"   -> this.particles.addParticle(new Water((int) xy.x, (int) xy.y));
             case "stone"   -> this.particles.addParticle(new Stone((int) xy.x, (int) xy.y));
             case "barrier" -> this.particles.addParticle(new Barrier((int) xy.x, (int) xy.y));
+            case "air"     -> this.particles.addParticle(new Air((int) xy.x, (int) xy.y));
         }
     }
 

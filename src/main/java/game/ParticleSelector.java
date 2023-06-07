@@ -19,10 +19,10 @@ public class ParticleSelector {
 
         this.selected = "sand";
 
-        this.infoText = new Text(new NDCoords(-0.95f, -height / 10 + 1), this.font, height / 6f,
-                "Press S for sand, W for water, z for stone, B for barrier");
+        this.infoText = new Text(new NDCoords(-0.95f, -height / 10 + 1), this.font, height / 5f,
+                "Press S for sand, W for water, z for stone,\nB for barrier, A for air. Click to spawn particles");
 
-        this.selectedText = new Text(new NDCoords(-0.95f, -height / 3 + 1), this.font, height / 6f,
+        this.selectedText = new Text(new NDCoords(-0.95f, -height / 1.5f + 1), this.font, height / 5f,
                 "Selected: " + this.selected);
     }
 
@@ -45,6 +45,7 @@ public class ParticleSelector {
                 case 'w' -> this.selected = "water";
                 case 'z' -> this.selected = "stone";
                 case 'b' -> this.selected = "barrier";
+                case 'a' -> this.selected = "air";
                 default -> newOptionSelected = false;
             }
 

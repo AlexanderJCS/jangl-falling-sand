@@ -7,6 +7,7 @@ import jangl.graphics.Texture;
 import jangl.io.Window;
 import jangl.shapes.Rect;
 import jangl.time.Clock;
+import particles.Air;
 import particles.Particle;
 
 import java.util.ArrayList;
@@ -38,8 +39,16 @@ public class Particles {
     }
 
     public void addParticle(Particle particle) {
-        this.particles[particle.getY()][particle.getX()] = particle;
-        this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getRGBA());
+        if (particle.getClass() != Air.class) {
+            this.particles[particle.getY()][particle.getX()] = particle;
+            this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getRGBA());
+
+        } else {
+            // Since air is represented as null
+            this.particles[particle.getY()][particle.getX()] = null;
+            this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), BACKGROUND_COLOR);
+        }
+
     }
 
     public PixelCoords getPixelCoords(NDCoords ndCoords) {
