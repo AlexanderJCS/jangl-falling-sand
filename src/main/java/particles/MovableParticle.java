@@ -14,32 +14,17 @@ public class MovableParticle extends Particle {
         this.randomize = randomize;
     }
 
-    @Override
-    public void update(Particles particles) {
-        /*
-         * This code is garbage, but I can't be bothered fixing it right now
-         * It would benefit from extraction
-         */
+    private void randomize() {
+        boolean swap = Math.random() > 0.5;
 
-        if (this.x >= particles.getWidth() || this.x < 0 ||
-                this.y >= particles.getHeight() - 1 || this.y < 0) {
-
-            return;
+        if (swap) {
+            Coords temp = this.deltas[1];
+            this.deltas[1] = this.deltas[2];
+            this.deltas[2] = temp;
         }
+    }
 
-        boolean swapped = false;
-        if (this.randomize) {
-            boolean swap = Math.random() > 0.5;
-
-            if (swap) {
-                swapped = true;
-                Coords temp = this.deltas[1];
-                this.deltas[1] = this.deltas[2];
-                this.deltas[2] = temp;
-            }
-        }
-
-
+    private void move(Particles particles) {
         for (Coords delta : this.deltas) {
             try {
                 if (particles.getParticleAt(this.x + (int) delta.x, this.y + (int) delta.y) == null) {
@@ -50,11 +35,24 @@ public class MovableParticle extends Particle {
                 }
             } catch (IndexOutOfBoundsException ignored) {}
         }
+    }
 
-        if (swapped) {
-            Coords temp = this.deltas[1];
-            this.deltas[1] = this.deltas[2];
-            this.deltas[2] = temp;
+    @Override
+    public void update(Particles particles) {
+        // Prevent the particle from going out of bounds
+        if (this.x >= particles.getWidth() || this.x < 0 ||
+                this.y >= particles.getHeight() - 1 || this.y < 0) {
+
+            return;
         }
+
+        // If the second and third indices should be random in order
+        // This is useful for making sure water and sand doesn't have a directional bias when the space under
+        // the particle is not empty
+        if (this.randomize) {
+            this.randomize();
+        }
+
+        this.move(particles);
     }
 }
