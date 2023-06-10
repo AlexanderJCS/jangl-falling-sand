@@ -1,5 +1,7 @@
 package game;
 
+import jangl.color.Color;
+import jangl.color.ColorFactory;
 import jangl.coords.NDCoords;
 import jangl.coords.PixelCoords;
 import jangl.graphics.MutableTexture;
@@ -7,6 +9,7 @@ import jangl.graphics.Texture;
 import jangl.io.Window;
 import jangl.shapes.Rect;
 import jangl.time.Clock;
+import org.lwjgl.opengl.GL46;
 import particles.Air;
 import particles.Particle;
 
@@ -15,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Particles implements AutoCloseable {
-    private static final float[] BACKGROUND_COLOR = new float[]{0.5f, 0.8f, 0.8f, 1};
+    private static final Color BACKGROUND_COLOR = ColorFactory.fromNormalized(0.5f, 0.8f, 0.8f, 1);
     private final MutableTexture mutableTexture;
     private final Rect rect;
     private final Particle[][] particles;
@@ -23,8 +26,7 @@ public class Particles implements AutoCloseable {
     private double timeToUpdate;
 
     public Particles(double updateTime) {
-        this.mutableTexture = new MutableTexture("src/main/resources/black.png");
-        this.mutableTexture.fillImage(BACKGROUND_COLOR[0], BACKGROUND_COLOR[1], BACKGROUND_COLOR[2], 1);
+        this.mutableTexture = new MutableTexture(BACKGROUND_COLOR, 100, 100, GL46.GL_NEAREST);
 
         this.particles = new Particle[this.getHeight()][this.getWidth()];
         this.rect = new Rect(
@@ -41,7 +43,7 @@ public class Particles implements AutoCloseable {
     public void addParticle(Particle particle) {
         if (particle.getClass() != Air.class) {
             this.particles[particle.getY()][particle.getX()] = particle;
-            this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getRGBA());
+            this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getColor());
 
         } else {
             // Since air is represented as null
@@ -99,7 +101,7 @@ public class Particles implements AutoCloseable {
                     this.particles[particle.getY()][particle.getX()] = particle;
                     this.particles[r][c] = null;
                     this.mutableTexture.setPixelAt(c, r, BACKGROUND_COLOR);
-                    this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getRGBA());
+                    this.mutableTexture.setPixelAt(particle.getX(), particle.getY(), particle.getColor());
                 }
             }
         }

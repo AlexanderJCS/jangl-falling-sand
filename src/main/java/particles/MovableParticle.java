@@ -1,14 +1,15 @@
 package particles;
 
 import game.Particles;
+import jangl.color.Color;
 import jangl.coords.Coords;
 
 public class MovableParticle extends Particle {
     private final Coords[] deltas;
     private final boolean randomize;
 
-    public MovableParticle(int x, int y, float[] rgba, Coords[] deltas, boolean randomize) {
-        super(x, y, rgba);
+    public MovableParticle(int x, int y, Color color, Coords[] deltas, boolean randomize) {
+        super(x, y, color);
 
         this.deltas = deltas;
         this.randomize = randomize;

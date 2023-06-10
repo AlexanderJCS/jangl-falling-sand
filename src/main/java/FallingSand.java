@@ -1,4 +1,5 @@
 import jangl.JANGL;
+import jangl.color.ColorFactory;
 import jangl.coords.PixelCoords;
 import jangl.io.Window;
 import jangl.io.keyboard.Keyboard;
@@ -77,7 +78,7 @@ public class FallingSand implements AutoCloseable {
     public static void main(String[] args) {
         JANGL.init(1000, 1200);
         Window.setVsync(true);
-        Window.setClearColor(1, 1, 1, 1);
+        Window.setClearColor(ColorFactory.fromNormalized(1, 1, 1, 1));
 
         FallingSand fallingSand = new FallingSand();
         fallingSand.run();

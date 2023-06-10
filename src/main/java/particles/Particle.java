@@ -1,15 +1,16 @@
 package particles;
 
 import game.Particles;
+import jangl.color.Color;
 
 public abstract class Particle {
     protected int x, y;
-    protected float[] rgba;
+    protected Color color;
 
-    public Particle(int x, int y, float[] rgba) {
+    public Particle(int x, int y, Color color) {
         this.x = x;
         this.y = y;
-        this.rgba = rgba;
+        this.color = color;
     }
 
     public int getX() {
@@ -20,8 +21,8 @@ public abstract class Particle {
         return this.y;
     }
 
-    public float[] getRGBA() {
-        return this.rgba;
+    public Color getColor() {
+        return this.color;
     }
 
     public abstract void update(Particles particles);
