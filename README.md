@@ -10,7 +10,13 @@ If you receive an error when running this program on Mac, make sure to include t
 -XstartOnFirstThread
 ```
 
+## My Window is Too Large!
+
+Your window may be too large (or small) on your display. To fix this, modify the [WindowOptions](src/main/java/WindowOptions.java) class. Set the `WINDOW_HEIGHT` value to whatever feels comfortable for your monitor's resolution. I have noticed that a value of 1200 pixels is good for 1440p monitors and a value of 900 pixels is good for 1080p monitors.
+
 ## How to Play
+
+Below are all the controls for the game. They are also explained on the top bar of the window.
 
 | Key   | Action                                                      |
 |-------|-------------------------------------------------------------|

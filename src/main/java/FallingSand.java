@@ -76,7 +76,7 @@ public class FallingSand implements AutoCloseable {
     }
 
     public static void main(String[] args) {
-        JANGL.init(1000, 1200);
+        JANGL.init(WindowOptions.WINDOW_WIDTH, WindowOptions.WINDOW_HEIGHT);
         Window.setVsync(true);
         Window.setClearColor(ColorFactory.fromNormalized(1, 1, 1, 1));
 
