@@ -18,10 +18,10 @@ public class ParticleSelector implements AutoCloseable {
 
         this.selected = "sand";
 
-        this.infoText = new Text(new NDCoords(-0.95f, -height / 10 + 1), font, height / 5f,
-                "Press S for sand, W for water, Z for stone,\nB for barrier, A for air. Click to spawn particles");
+        this.infoText = new Text(new NDCoords(-0.95f, -height / 10 + 1), font, height / 5.5f,
+                "Press S for sand, W for water, Z for stone,\nB for barrier, A for air. Hold click to spawn particles");
 
-        this.selectedText = new Text(new NDCoords(-0.95f, -height / 1.5f + 1), font, height / 5f,
+        this.selectedText = new Text(new NDCoords(-0.95f, -height / 1.5f + 1), font, height / 5.5f,
                 "Selected: " + this.selected);
     }
 
