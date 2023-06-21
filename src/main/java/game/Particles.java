@@ -26,13 +26,11 @@ public class Particles implements AutoCloseable {
     private double timeToUpdate;
 
     public Particles(double updateTime) {
-        this.mutableTexture = new MutableTexture(BACKGROUND_COLOR, 100, 100, GL46.GL_NEAREST);
+        this.mutableTexture = new MutableTexture(BACKGROUND_COLOR, 100, 100, GL46.GL_NEAREST, false);
 
         this.particles = new Particle[this.getHeight()][this.getWidth()];
         this.rect = new Rect(
-                new PixelCoords(
-                        0, Window.getScreenWidth()
-                ).toScreenCoords(),
+                new PixelCoords(0, Window.getScreenWidth()).toNDCoords(),
                 2, PixelCoords.distYtoNDC(Window.getScreenWidth())
         );
 
